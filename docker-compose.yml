@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    container_name: test_task-app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    volumes:
+      - .:/test_task
+    env_file:
+      - .env.dev
+    restart: always
+
+  db:
+    image: postgres:17
+    container_name: test_task-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env.dev
+    restart: always
+
+volumes:
+  postgres_data:
